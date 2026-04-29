@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Studia con me</title>
+<title>Studia con Me - Matematica</title>
+<meta name="description" content="Piattaforma per studiare matematica con lezioni, quiz, flashcard e supporto interattivo.">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0f0f0f;
+    color: white;
+}
+
+header {
+    background: #1e1e1e;
+    padding: 20px;
+    text-align: center;
+    font-size: 26px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 15px;
+}
+
+.box {
+    background: #222;
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.box:hover { background: #333; }
+
+.lesson {
+    display: none;
+    margin-top: 10px;
+    background: #111;
+    padding: 12px;
+    border-left: 4px solid #00ccff;
+    border-radius: 10px;
+    line-height: 1.5;
+}
+
+h2 { margin: 0; color: #00ccff; }
+
+.example { color: #ffcc00; }
+
+button {
+    margin-top: 5px;
+    padding: 5px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>📘 Studia con me - by Christian</header>
+
+<div class="container">
+
+<!-- ALGEBRA -->
+<div class="box" onclick="toggle('alg')">
+<h2>Algebra</h2>
+<div id="alg" class="lesson">
+<p>Studia variabili e relazioni matematiche.</p>
+<p>Equazioni: ax + b = 0</p>
+<p class="example">Esempio: 2x + 4 = 0 → x = -2</p>
+</div>
+</div>
+
+<!-- GEOMETRIA -->
+<div class="box" onclick="toggle('geo')">
+<h2>Geometria</h2>
+<div id="geo" class="lesson">
+<p>Figure piane e solide.</p>
+<p>Cerchio: πr²</p>
+<p>Triangolo: (b·h)/2</p>
+<p class="example">Esempio: r=3 → 28.26</p>
+</div>
+</div>
+
+<!-- STATISTICA -->
+<div class="box" onclick="toggle('stat')">
+<h2>Statistica</h2>
+<div id="stat" class="lesson">
+
+<p>Analisi dati: media, moda, mediana.</p>
+
+<canvas id="chart" width="300" height="150"></canvas>
+
+<script>
+setTimeout(()=>{
+const c=document.getElementById("chart");
+if(c){
+const ctx=c.getContext("2d");
+ctx.beginPath();
+ctx.moveTo(10,120);
+ctx.lineTo(60,60);
+ctx.lineTo(120,90);
+ctx.lineTo(200,30);
+ctx.strokeStyle="cyan";
+ctx.stroke();
+}
+},100);
+</script>
+
+</div>
+</div>
+
+<!-- POTENZE -->
+<div class="box" onclick="toggle('pot')">
+<h2>Potenze</h2>
+<div id="pot" class="lesson">
+<p>aⁿ = moltiplicazione ripetuta</p>
+<p class="example">2³ = 8</p>
+</div>
+</div>
+
+<!-- RADICI -->
+<div class="box" onclick="toggle('rad')">
+<h2>Radici</h2>
+<div id="rad" class="lesson">
+<p>Operazione inversa delle potenze</p>
+<p class="example">√16 = 4</p>
+</div>
+</div>
+
+<!-- LOG -->
+<div class="box" onclick="toggle('log')">
+<h2>Logaritmi</h2>
+<div id="log" class="lesson">
+<p>log₂(8)=3</p>
+</div>
+</div>
+
+<!-- INTEGRALI -->
+<div class="box" onclick="toggle('int')">
+<h2>Integrali</h2>
+<div id="int" class="lesson">
+<p>Calcolo aree sotto curve</p>
+<p class="example">∫x dx = x²/2</p>
+</div>
+</div>
+
+<!-- QUIZ -->
+<div class="box" onclick="toggle('quiz')">
+<h2>📝 Quiz</h2>
+<div id="quiz" class="lesson">
+
+<p>2² = ?</p>
+<button onclick="score(true)">4</button>
+<button onclick="score(false)">2</button>
+
+<p>√9 = ?</p>
+<button onclick="score(false)">2</button>
+<button onclick="score(true)">3</button>
+
+<p id="punteggio">Punteggio: 0</p>
+
+</div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="box" onclick="toggle('flash')">
+<h2>🃏 Flashcards</h2>
+<div id="flash" class="lesson">
+
+<input id="q" placeholder="Domanda">
+<input id="a" placeholder="Risposta">
+<button onclick="addCard()">Aggiungi</button>
+
+<div id="cards"></div>
+
+</div>
+</div>
+
+<!-- AI -->
+<div class="box" onclick="toggle('ai')">
+<h2>🤖 AI (demo)</h2>
+<div id="ai" class="lesson">
+
+<p>Inserisci esercizio:</p>
+<input placeholder="Scrivi esercizio">
+<button onclick="alert('AI demo: analisi simulata')">Invia</button>
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+function toggle(id){
+let el=document.getElementById(id);
+el.style.display=(el.style.display==="block")?"none":"block";
+}
+
+/* QUIZ */
+let p=0;
+function score(ok){
+if(ok) p++;
+document.getElementById("punteggio").innerText="Punteggio: "+p;
+}
+
+/* FLASHCARDS */
+function addCard(){
+let q=document.getElementById("q").value;
+let a=document.getElementById("a").value;
+
+let div=document.createElement("div");
+div.style.background="#1b1b1b";
+div.style.marginTop="8px";
+div.style.padding="8px";
+div.style.borderRadius="8px";
+
+div.innerHTML="<b>Q:</b> "+q+"<br><b>A:</b> "+a;
+
+document.getElementById("cards").appendChild(div);
+}
+
+</script>
+
+</body>
+</html>
